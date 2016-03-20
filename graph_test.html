@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test HTML5/JavaScript Graph Test</title>
+</head>
+<body>
+
+<p id="coordinates">Canvas Coordinates</p>
+<p>
+<input type="file" id="fileInput"></input>
+<button type="button" onclick="setMargin()">Set Margin</button>
+<input type="text" id="margin"></input>
+
+
+<button type="button" onclick="setCanvasSize()">Set Canvas Size</button>
+<input type="text" id="canvas_x"></input>
+<input type="text" id="canvas_y"></input>
+
+<!-- <button type="button" onclick="printConarc()">Execute PrintConarc</button> -->
+<!-- <button type="button" onclick="chart.clear()">Clear</button> -->
+</p>
+
+
+<canvas id="graphCanvas"></canvas>
+<script src="testGraph.js"></script>
+
+<script>
+var graphCanvas = document.getElementById("graphCanvas");
+var graph = new Graph(graphCanvas, 1800, 800);
+
+function readSingleFile(anEvent)
+{
+   var file = anEvent.target.files[0];
+   if(file)
+   {
+      var fileReader = new FileReader();
+      fileReader.onload = function(loadEvent)
+      {
+         var fileContents = loadEvent.target.result;
+         graph.load(fileContents);
+      }
+      fileReader.readAsText(file);
+   }
+}
+
+function setMargin()
+{
+   graph.setMargin(document.getElementById("margin").value);
+   graph.redraw();
+}
+
+function setCanvasSize()
+{
+   graph.setCanvasSize(document.getElementById("canvas_x").value, document.getElementById("canvas_y").value);
+   graph.redraw();
+}
+
+function printConarc()
+{
+
+}
+
+
+document.getElementById("fileInput").addEventListener('change', readSingleFile, false);
+</script>
+</body>
+</html>
+
